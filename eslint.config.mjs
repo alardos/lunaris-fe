@@ -11,6 +11,7 @@ export default [
     ...tseslint.configs.recommended,
     {
         rules: {
+            "@typescript-eslint/no-explicit-any": "off",
             "no-unused-vars": "warn",
             "no-undef": "warn",
             "indent": ["warn", 4]

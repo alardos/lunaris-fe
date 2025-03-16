@@ -1,3 +1,51 @@
-<div cdkDropList [cdkDropListData]="cards" class="card-list" (cdkDropListDropped)="drop($event)">
-  <app-text-card *ngFor="let card of cards" [data]="card" cdkDrag></app-text-card>
+<div class="main-container" cdkDropListGroup>
+  <div class="column side-column">
+    <div
+      cdkDropList
+      [cdkDropListData]="leftColumn"
+      class="list"
+      (cdkDropListDropped)="drop($event)">
+      <app-text-card cdkDrag class="card" *ngFor="let item of leftColumn" [data]="item"/>
+    </div>
+  </div>
+
+  <div class="column center-column">
+    <div class="button-row">
+      <button (click)="createTextCard()">
+        <div class="button-content">
+          <img class="plus-icon" src="plus.svg">
+          <span>Szöveg</span>
+        </div>
+      </button>
+      <button>
+        <div class="button-content">
+          <img class="plus-icon" src="plus.svg">
+          <span>Naptár</span>
+        </div>
+      </button>
+      <button>
+        <div class="button-content">
+          <img class="plus-icon" src="plus.svg">
+          <span>Kérdőív</span>
+        </div>
+      </button>
+    </div>
+    <div
+      cdkDropList
+      [cdkDropListData]="centerColumn"
+      class="list"
+      (cdkDropListDropped)="drop($event)">
+      <app-text-card cdkDrag  class="card" *ngFor="let item of centerColumn" [data]="item"/>
+    </div>
+  </div>
+
+  <div class="column column side-column">
+    <div
+      cdkDropList
+      [cdkDropListData]="rightColumn"
+      class="list"
+      (cdkDropListDropped)="drop($event)">
+      <app-text-card cdkDrag class="card" *ngFor="let item of rightColumn" [data]="item"/>
+    </div>
+  </div>
 </div>

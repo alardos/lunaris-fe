@@ -1,15 +1,30 @@
-<ng-template cdkDragPreview>
-  <div class="main-container custom-preview">
-    <!-- <span>{{data.title}}</span> -->
-  </div>
-</ng-template>
-
-<ng-template cdkDragPlaceholder>
-  <div class="main-container custom-placeholder">
-    <!-- <span>{{data.content}}</span> -->
-  </div>
-</ng-template>
-
 <div class="main-container">
-  <span>{{data.title}}{{data.content}}</span>
+  <div *ngIf="mode==='edit'"  class="edit" (mousedown)="stopPropagation($event)" (click)="focusText()">
+    <div class="toolbar">
+      <div class="toolbar-editor-part" (click)="stopPropagation($event)">
+        <button class="toolbar-button">B</button>
+        <button class="toolbar-button">I</button>
+        <div class="vertical-line"></div>
+        <button class="toolbar-button">H</button>
+        <button class="toolbar-button"><img src="bullet-list-icon.svg"/></button>
+        <button class="toolbar-button"><img src="numbered-list-icon.svg"/></button>
+      </div>
+      <div class="toolbar-options-part" (click)="stopPropagation($event)">
+        <div class="toolbar-option-button"><img src="full-screen-icon.svg"/></div>
+        <div class="toolbar-option-button" (click)="save(); stopPropagation($event)"><img src="done-icon.svg"/></div>
+      </div>
+    </div>
+    <div class="text">
+      <textarea [ngModel]="data.content" (keyup.control.enter)="save()" (input)="textareaKeydown()" #textarea></textarea>
+      <div id="hidden-content"></div>
+    </div>
+  </div>
+  <div *ngIf="mode==='view'" (dblclick)="edit()"  class="view">
+    <div class="text" [innerHTML]="viewValue"> </div>
+    <div class="toolbar">
+        <div class="toolbar-option-button" (click)="edit()"><img src="edit-icon.svg"/></div>
+        <div class="toolbar-option-button"><img src="full-screen-icon.svg"/></div>
+  </div>
 </div>
+
+

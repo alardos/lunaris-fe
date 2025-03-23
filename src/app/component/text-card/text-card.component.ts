@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import showdown from 'showdown';
 import { CardService } from '../../service/card.service';
@@ -15,33 +15,33 @@ import { ConfigService } from '../../service/config.service';
 export class TextCardComponent implements OnInit {
     @Input({ required: true }) data!: TextCardData;
     @ViewChild('textarea') textareaRef!: ElementRef<HTMLElement>;
+    @HostBinding("style.--dyn-color") private dynColor!: string;
 
-    textarea!: HTMLElement;
     mode: 'view'|'edit' = 'view';
     viewValue = '';
     mdConverter: showdown.Converter;
 
     constructor(private cardService: CardService, config: ConfigService) {
         this.mdConverter = config.mdConverter;
-        this.textarea = this.textareaRef.nativeElement;
     }
 
     ngOnInit(): void {
         this.viewValue = this.mdConverter.makeHtml(this.data.content)
+        this.dynColor = "#BF6A02";
     }
 
     textareaKeydown() {
-        this.textarea.style.height = 'auto';
-        this.textarea.style.height = `${this.textarea.scrollHeight+20}px`
-        this.data.content = (this.textarea as any).value;
+        this.textareaRef.nativeElement.style.height = 'auto';
+        this.textareaRef.nativeElement.style.height = `${this.textareaRef.nativeElement.scrollHeight+20}px`
+        this.data.content = (this.textareaRef.nativeElement as any).value;
     }
 
     stopPropagation(event: Event) { event.stopPropagation(); }
 
-    focusText() { this.textarea.focus() }
+    focusText() { this.textareaRef.nativeElement.focus() }
 
     save() {
-        this.data.content = (this.textarea as any).value
+        this.data.content = (this.textareaRef.nativeElement as any).value
         this.viewValue = this.mdConverter.makeHtml(this.data.content);
         this.mode = 'view';
         this.cardService.update(this.data)

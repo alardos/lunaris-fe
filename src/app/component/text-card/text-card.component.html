@@ -1,30 +1,36 @@
-<div class="main-container">
-  <div *ngIf="mode==='edit'"  class="edit" (mousedown)="stopPropagation($event)" (click)="focusText()">
-    <div class="toolbar">
-      <div class="toolbar-editor-part" (click)="stopPropagation($event)">
-        <button class="toolbar-button">B</button>
-        <button class="toolbar-button">I</button>
+<div class="flex-row border-2 border-radius bg-white padding-10 dyn-border-color">
+
+  <div *ngIf="mode==='edit'" class="bg-grey padding-10 flex-col flex-grow-1 border-radius" (mousedown)="stopPropagation($event)" (click)="focusText()">
+    <div class="height-40 flex-row width-full">
+
+      <div class=""></div>
+
+      <div class="bg-white border-radius flex-row flex-grow-0 auto-margin-left height-40 padding-side-5" (click)="stopPropagation($event)">
+        <button class="editor-button">B</button>
+        <button class="editor-button">I</button>
         <div class="vertical-line"></div>
-        <button class="toolbar-button">H</button>
-        <button class="toolbar-button"><img src="bullet-list-icon.svg"/></button>
-        <button class="toolbar-button"><img src="numbered-list-icon.svg"/></button>
+        <button class="editor-button">H</button>
+        <button class="editor-button"><img src="bullet-list-icon.svg"/></button>
+        <button class="editor-button"><img src="numbered-list-icon.svg"/></button>
       </div>
-      <div class="toolbar-options-part" (click)="stopPropagation($event)">
-        <div class="toolbar-option-button"><img src="full-screen-icon.svg"/></div>
-        <div class="toolbar-option-button" (click)="save(); stopPropagation($event)"><img src="done-icon.svg"/></div>
+
+      <div class="flex-row auto-margin-left" (click)="stopPropagation($event)">
+        <div class="icon-button"><img src="full-screen-icon.svg"/></div>
+        <div class="icon-button" (click)="save(); stopPropagation($event)"><img src="done-icon.svg"/></div>
       </div>
+
     </div>
-    <div class="text">
-      <textarea [ngModel]="data.content" (keyup.control.enter)="save()" (input)="textareaKeydown()" #textarea></textarea>
-      <div id="hidden-content"></div>
-    </div>
+
+    <textarea class="growable-textarea" [ngModel]="data.content" (keyup.control.enter)="save()" (input)="textareaKeydown()" #textarea></textarea>
   </div>
-  <div *ngIf="mode==='view'" (dblclick)="edit()"  class="view">
-    <div class="text" [innerHTML]="viewValue"> </div>
-    <div class="toolbar">
-        <div class="toolbar-option-button" (click)="edit()"><img src="edit-icon.svg"/></div>
-        <div class="toolbar-option-button"><img src="full-screen-icon.svg"/></div>
+
+  <div *ngIf="mode==='view'" (dblclick)="edit()"  class="flex-row bg-white flex-grow-1 align-start">
+    <div class="flex-grow-1 " [innerHTML]="viewValue"> </div>
+    <div class="flex-col ">
+        <div class="icon-button" (click)="edit()"><img src="edit-icon.svg"/></div>
+        <div class="icon-button"><img src="full-screen-icon.svg"/></div>
   </div>
+
 </div>
 
 

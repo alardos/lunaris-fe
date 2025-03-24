@@ -22,12 +22,13 @@ export class WorkspacePageComponent implements OnInit {
 
     async ngOnInit() {
         this.centerColumn = (await this.cardService.allForWorkspace()).map(c => c as TextCardData)
+        this.centerColumn = this.centerColumn.sort((a,b) => a.createdAt-b.createdAt)
     }
 
     async createTextCard() {
         this.centerColumn.push(
             await this.cardService.create(
-                new TextCardData('', env.testWorkspaceId, '', '')
+                new TextCardData('', env.testWorkspaceId, '', new Date().getTime(), '')
             )
         )
     }

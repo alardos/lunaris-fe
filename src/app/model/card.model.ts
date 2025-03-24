@@ -4,6 +4,7 @@ export class CardData {
         public readonly id: string,
         public readonly workspace: string,
         public readonly owner: string,
+        public readonly createdAt: number,
     ) { }
 }
 
@@ -13,15 +14,16 @@ export class TextCardData extends CardData {
         id: string,
         workspace: string,
         owner: string,
+        createdAt: number,
         public content: string,
     ) {
-        super("type",id,workspace,owner);
+        super("text",id,workspace,owner,createdAt);
     }
 }
 
 export function cardFactory(arg:any): CardData {
     switch (arg.type) {
-        case 'text': return new TextCardData(arg.id, arg.workspace, arg.owner, arg.content);
+        case 'text': return new TextCardData(arg.id, arg.workspace, arg.owner, arg.createdAt, arg.content);
         default: throw Error("wrong card type: "+arg.type);
     }
 }

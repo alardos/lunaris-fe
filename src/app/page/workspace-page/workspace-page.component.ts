@@ -8,6 +8,7 @@ import { env } from '../../../../environment';
 import { CardWrapperComponent } from '../../component/card-wrapper/card-wrapper.component';
 import { WorkspaceService } from '../../service/workspace.service';
 import { Workspace } from '../../model/workspace.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-workspace-page',
@@ -21,10 +22,10 @@ export class WorkspacePageComponent implements OnInit {
     centerColumn: CardData[] = [ ];
     rightColumn: CardData[] = [ ];
 
-    constructor(private cardService: CardService, private workspaceService: WorkspaceService) { }
+    constructor(private cardService: CardService, private workspaceService: WorkspaceService, private route: ActivatedRoute) { }
 
     async ngOnInit() {
-        this.workspace = await this.workspaceService.details(env.testWorkspaceId)
+        this.workspace = await this.workspaceService.details(this.route.snapshot.paramMap.get('id')!)
         this.centerColumn = this.workspace.cards.sort((a,b) => a.createdAt-b.createdAt)
         console.log(this.centerColumn)
     }

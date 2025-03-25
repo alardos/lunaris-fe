@@ -1,1 +1,3 @@
-<p>home-page works!</p>
+<div class="main-container">
+  <div (click)="open(workspace)" class="container bg-grey" *ngFor="let workspace of workspaces"><span>{{workspace.name}}</span></div>
+</div>

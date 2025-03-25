@@ -12,7 +12,12 @@ export class WorkspaceService {
     constructor(private http: HttpClient) { }
 
     async details(workspace: string): Promise<Workspace> {
-        return firstValueFrom(this.http.get(`${env.api}w/${env.testWorkspaceId}`))
+        return firstValueFrom(this.http.get(`${env.api}w/${workspace}`))
             .then((data:any) => Workspace.from(data))
+    }
+
+    async mine(): Promise<Workspace[]> {
+        return firstValueFrom(this.http.get(`${env.api}mine`))
+            .then((data) => (data as any).map(Workspace.from))
     }
 }

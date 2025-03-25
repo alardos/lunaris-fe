@@ -16,8 +16,8 @@ export class CardService {
             .then((returned:any) => cardFactory(returned))
     }
 
-    async allForWorkspace(): Promise<CardData[]> {
-        return firstValueFrom(this.http.get(`${env.api}w/${env.testWorkspaceId}/card/all`))
+    async allForWorkspace(workspace:string): Promise<CardData[]> {
+        return firstValueFrom(this.http.get(`${env.api}w/${workspace}/card/all`))
             .then(data => (data as []).map(cardFactory))
     }
 

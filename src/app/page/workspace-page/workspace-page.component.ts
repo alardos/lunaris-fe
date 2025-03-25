@@ -6,6 +6,8 @@ import { CardService } from '../../service/card.service';
 import { CardData, TextCardData } from '../../model/card.model';
 import { env } from '../../../../environment';
 import { CardWrapperComponent } from '../../component/card-wrapper/card-wrapper.component';
+import { WorkspaceService } from '../../service/workspace.service';
+import { Workspace } from '../../model/workspace.model';
 
 @Component({
     selector: 'app-workspace-page',
@@ -14,15 +16,17 @@ import { CardWrapperComponent } from '../../component/card-wrapper/card-wrapper.
     styleUrl: './workspace-page.component.scss',
 })
 export class WorkspacePageComponent implements OnInit {
+    workspace!: Workspace;
     leftColumn: CardData[] = [ ];
     centerColumn: CardData[] = [ ];
     rightColumn: CardData[] = [ ];
 
-    constructor(private cardService: CardService) { }
+    constructor(private cardService: CardService, private workspaceService: WorkspaceService) { }
 
     async ngOnInit() {
-        this.centerColumn = (await this.cardService.allForWorkspace()).map(c => c as TextCardData)
-        this.centerColumn = this.centerColumn.sort((a,b) => a.createdAt-b.createdAt)
+        this.workspace = await this.workspaceService.details(env.testWorkspaceId)
+        this.centerColumn = this.workspace.cards.sort((a,b) => a.createdAt-b.createdAt)
+        console.log(this.centerColumn)
     }
 
     async createTextCard() {

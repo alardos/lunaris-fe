@@ -1,0 +1,53 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { env } from '../../../environment';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthService {
+
+    constructor(private http: HttpClient) { }
+
+    async login(email:string,password:string) {
+        return firstValueFrom(this.http.post(`${env.api}auth/login`,{email,password}))
+            .then((data:any) => {
+                localStorage.setItem('accessToken',data.accessToken)
+                localStorage.setItem('refreshToken',data.refreshToken)
+            })
+
+    }
+
+    refresh(): Promise<string|null> {
+        const refreshToken = localStorage.getItem('refreshToken')
+        if (!refreshToken) return Promise.resolve(null);
+        return firstValueFrom(this.http.post(`${env.api}auth/refresh`,refreshToken))
+            .then((data:any) => {
+                localStorage.setItem('accessToken',data.accessToken)
+                localStorage.setItem('refreshToken',data.refreshToken)
+                return data.accessToken;
+            })
+            .catch(e => null)
+
+    }
+
+    async hasAuth() {
+        const accessToken = localStorage.getItem("accessToken");
+        const refreshToken = localStorage.getItem("refreshToken");
+        if (this.isTokenValid(accessToken)) return true;
+        if (this.isTokenValid(refreshToken)) {
+            return await this.refresh()
+        }
+        return false;
+    }
+
+    isTokenValid(token:string|null) {
+        if (!token) return false;
+        const payloadBase64 = token.split('.')[1];
+        const base64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
+        const decodedJwt = JSON.parse(window.atob(base64));
+        return decodedJwt.exp > Math.floor(new Date().getTime() / 1000)
+    }
+
+}

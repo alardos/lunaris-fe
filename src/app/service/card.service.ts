@@ -22,7 +22,7 @@ export class CardService {
     }
 
     async update(card: CardData) {
-        return firstValueFrom(this.http.put(`${env.api}w/${card.workspace}/card`, card))
+        return firstValueFrom(this.http.put(`${env.api}c/${card.id}`, card))
             .then(cardFactory)
 
     }

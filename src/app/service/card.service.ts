@@ -12,7 +12,7 @@ export class CardService {
     constructor(private http: HttpClient) { }
 
     async create(data: CardData): Promise<CardData> {
-        return firstValueFrom(this.http.post(`${env.api}w/${data.workspace}/card/create`, data))
+        return firstValueFrom(this.http.post(`${env.api}w/${data.workspace}/create-card`, data))
             .then((returned:any) => cardFactory(returned))
     }
 

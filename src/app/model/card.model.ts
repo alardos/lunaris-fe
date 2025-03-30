@@ -1,4 +1,5 @@
 export class CardData {
+    distribution?: {card:string,place:number,ordinal:number}
     constructor(
         public readonly type: string,
         public readonly id: string,

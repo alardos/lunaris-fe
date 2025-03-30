@@ -2,10 +2,10 @@
   <div class="column side-column">
     <div
       cdkDropList
-      [cdkDropListData]="leftColumn"
+      [cdkDropListData]="leftCol"
       class="list"
-      (cdkDropListDropped)="drop($event)">
-      <app-card-wrapper cdkDrag class="card" *ngFor="let item of leftColumn" [data]="item"/>
+      (cdkDropListDropped)="dropToLeft($event)">
+      <app-card-wrapper cdkDrag class="card" *ngFor="let item of leftCol" [data]="item"/>
     </div>
   </div>
 
@@ -32,21 +32,23 @@
     </div>
     <div
       cdkDropList
-      [cdkDropListData]="centerColumn"
+      [cdkDropListData]="centerCol"
       class="list"
-      (cdkDropListDropped)="drop($event)">
+      (cdkDropListDropped)="dropToCenter($event)"
+      [cdkDropListSortingDisabled]="true"
+      >
 
-        <app-card-wrapper class="card" cdkDrag *ngFor="let item of centerColumn" [data]="item"/>
+      <app-card-wrapper class="card" cdkDrag *ngFor="let item of centerCol" [data]="item"/>
     </div>
   </div>
 
   <div class="column column side-column">
     <div
       cdkDropList
-      [cdkDropListData]="rightColumn"
+      [cdkDropListData]="rightCol"
       class="list"
-      (cdkDropListDropped)="drop($event)">
-      <app-card-wrapper cdkDrag class="card" *ngFor="let item of rightColumn" [data]="item"/>
+      (cdkDropListDropped)="dropToRight($event)">
+      <app-card-wrapper cdkDrag class="card" *ngFor="let item of rightCol" [data]="item"/>
     </div>
   </div>
 </div>

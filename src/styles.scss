@@ -35,7 +35,7 @@ body {
 .width-full { width: 100% }
 .auto-margin-left { margin-left: auto }
 .border-2 { border: solid 2px; }
-.dyn-border-color { border-color: var(--dyn-color) }
+.dyn-border-color { border-color: var(--owner-color) }
 .aligh-self-flex-end { align-self: flex-end; }
 .flex-1 { flex: 1 }
 .growable-textarea {
@@ -67,7 +67,7 @@ body {
     }
   }
   &:hover {
-    color: var(--dyn-color)
+    color: var(--my-color)
   }
 }
 .icon-button {

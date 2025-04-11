@@ -15,6 +15,7 @@ export class AuthService {
             .then((data:any) => {
                 localStorage.setItem('accessToken',data.accessToken)
                 localStorage.setItem('refreshToken',data.refreshToken)
+                localStorage.setItem('myId', data.myId)
             })
 
     }
@@ -26,6 +27,7 @@ export class AuthService {
             .then((data:any) => {
                 localStorage.setItem('accessToken',data.accessToken)
                 localStorage.setItem('refreshToken',data.refreshToken)
+                localStorage.setItem('myId', data.myId)
                 return data.accessToken;
             })
             .catch(e => null)

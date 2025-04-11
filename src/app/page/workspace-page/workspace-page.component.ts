@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import {CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { CardService } from '../../service/card.service';
 import { CardData, TextCardData } from '../../model/card.model';
 import { CardWrapperComponent } from '../../component/card-wrapper/card-wrapper.component';
 import { WorkspaceService } from '../../service/workspace.service';
-import { Distribution, Workspace } from '../../model/workspace.model';
+import { Distribution, Member, Workspace } from '../../model/workspace.model';
 import { ActivatedRoute } from '@angular/router';
+import { ColorService } from '../../service/color.service';
 
 @Component({
     selector: 'app-workspace-page',
@@ -18,6 +19,8 @@ export class WorkspacePageComponent implements OnInit {
     id!: string;
     distribution!: Distribution;
     workspace!: Workspace;
+    members!: Member[]
+
 
     leftCol: CardData[] = [];
     centerCol: CardData[] = [];
@@ -26,14 +29,22 @@ export class WorkspacePageComponent implements OnInit {
     constructor(
       private cardService: CardService,
       private workspaceService: WorkspaceService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private colorService: ColorService,
     ) { }
 
     async ngOnInit() {
+        const myId = localStorage.getItem("myId")
         this.id = this.route.snapshot.paramMap.get('id')!
         await Promise.all([
             this.workspaceService.details(this.id)
-                .then(data => this.workspace=data),
+                .then(data => {
+                    if (myId) {
+                        this.colorService.setMyColor(data.members.find(u => u.id === myId)!.color);
+                    }
+                    this.workspace=data
+                    this.members=data.members
+                }),
             this.workspaceService.distribution(this.id)
                 .then(data => {console.log(data);this.distribution=data;return data})
         ]).then(() => {

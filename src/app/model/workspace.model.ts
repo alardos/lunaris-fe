@@ -1,11 +1,11 @@
 import { CardData, cardFactory } from "./card.model";
-
+export type Member = {id:string,email:string,color:string,rank:string}
 export class Workspace {
     constructor(
         public readonly id: string,
         public readonly name: string,
         public readonly owner: string,
-        public readonly members: string[],
+        public readonly members: Member[],
         public cards: CardData[],
     ) {}
 
@@ -13,7 +13,7 @@ export class Workspace {
         id: string,
         name: string,
         owner: string,
-        members: string[],
+        members: Member[],
         cards: CardData[],
     }): Workspace {
         return new Workspace(arg.id,arg.name,arg.owner,arg.members,arg.cards?.map(cardFactory))

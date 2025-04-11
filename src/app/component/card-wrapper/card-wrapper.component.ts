@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CardData, TextCardData } from '../../model/card.model';
 import { CommonModule } from '@angular/common';
 import { TextCardComponent } from "../text-card/text-card.component";
+import { Member } from '../../model/workspace.model';
 
 @Component({
     selector: 'app-card-wrapper',
@@ -11,6 +12,7 @@ import { TextCardComponent } from "../text-card/text-card.component";
 })
 export class CardWrapperComponent implements OnInit {
     @Input({required:true}) data!: CardData;
+    @Input({required:true}) members!: Member[];
 
     textCardData?: TextCardData;
 

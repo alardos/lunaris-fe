@@ -26,14 +26,11 @@
       }
     }
     &:hover {
-      border-color: #BF6A02;
-      color: #BF6A02;
+      border-color: var(--my-color);
+      color: var(--my-color);
       .button-content {
-        img {
-          filter: invert(45%) sepia(85%) saturate(3535%) hue-rotate(21deg) brightness(94%) contrast(98%);
-        }
         span {
-          color: #BF6A02;
+          color: var(--my-color);
         }
       }
     }

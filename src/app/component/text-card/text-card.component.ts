@@ -5,6 +5,7 @@ import showdown from 'showdown';
 import { CardService } from '../../service/card.service';
 import { TextCardData } from '../../model/card.model';
 import { ConfigService } from '../../service/config.service';
+import { Member } from '../../model/workspace.model';
 
 @Component({
     selector: 'app-text-card',
@@ -14,8 +15,9 @@ import { ConfigService } from '../../service/config.service';
 })
 export class TextCardComponent implements OnInit {
     @Input({ required: true }) data!: TextCardData;
+    @Input({ required: true }) members!: Member[];
     @ViewChild('textarea') textareaRef!: ElementRef<HTMLElement>;
-    @HostBinding("style.--dyn-color") private dynColor!: string;
+    @HostBinding("style.--owner-color") private ownerColor!: string;
 
     mode: 'view'|'edit' = 'view';
     viewValue = '';
@@ -27,9 +29,14 @@ export class TextCardComponent implements OnInit {
 
     ngOnInit(): void {
         this.viewValue = this.mdConverter.makeHtml(this.data.content)
-        this.dynColor = "#BF6A02";
+
+        this.ownerColor = this.thisCardColor()
     }
 
+    thisCardColor(): string {
+        console.log(this.members,this.data);
+        return this.members.find(m => m.id === this.data.owner)?.color ?? "#FFFFFF"
+    }
     textareaKeydown() {
         this.textareaRef.nativeElement.style.height = 'auto';
         this.textareaRef.nativeElement.style.height = `${this.textareaRef.nativeElement.scrollHeight+20}px`

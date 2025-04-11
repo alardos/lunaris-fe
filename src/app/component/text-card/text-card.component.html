@@ -6,12 +6,12 @@
       <div class=""></div>
 
       <div class="bg-white border-radius flex-row flex-grow-0 auto-margin-left height-40 padding-side-5" (click)="stopPropagation($event)">
-        <button class="editor-button">B</button>
-        <button class="editor-button">I</button>
+        <button (click)="bold()" class="editor-button">B</button>
+        <button (click)="italic()" class="editor-button">I</button>
         <div class="vertical-line"></div>
-        <button class="editor-button">H</button>
-        <button class="editor-button"><img src="bullet-list-icon.svg"/></button>
-        <button class="editor-button"><img src="numbered-list-icon.svg"/></button>
+        <button (click)="header()" class="editor-button">H</button>
+        <button (click)="bullet()" class="editor-button"><img src="bullet-list-icon.svg"/></button>
+        <button (click)="numbered()" class="editor-button"><img src="numbered-list-icon.svg"/></button>
       </div>
 
       <div class="flex-row auto-margin-left" (click)="stopPropagation($event)">

@@ -39,33 +39,39 @@
 .main-container {
   background-image: url("../../../../public/bg-sprinkle.svg");
   background-repeat: no-repeat;
-  padding-top: 25vh;
   display: flex;
   gap: 16px;
   padding-left: 16px;
   padding-right: 16px;
+  overflow: hidden;
+  height: 100vh;
 }
 .side-column {
-  margin-top: 64px;
+  /* padding-top: 64px; */
   flex: 1;
-  flex-grow: 1
+  flex-grow: 1;
+  padding-top: calc(25vh + 64px);
+  padding-bottom: 10vh;
 }
 .center-column {
   flex: 2;
   flex-grow: 2;
+  padding-top: 25vh;
+  padding-bottom: 10vh;
 }
 .column {
-  /* width: 400px; */
-  /* max-width: 100%; */
-  /* margin: 0 25px 25px 0; */
   display: inline-block;
   vertical-align: top;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;
+}
+.column::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
 }
 
 .list {
-  /* border: solid 1px #ccc; */
   min-height: 100vh;
-  /* background: white; */
   border-radius: 4px;
   overflow: hidden;
   display: flex;

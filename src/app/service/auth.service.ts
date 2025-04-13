@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { env } from '../../../environment';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private route: Router) { }
 
     async login(email:string,password:string) {
         return firstValueFrom(this.http.post(`${env.api}auth/login`,{email,password}))
@@ -34,12 +35,19 @@ export class AuthService {
 
     }
 
-    async hasAuth() {
+    async logout() {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("myId");
+        this.route.navigate(['login']);
+    }
+
+    async hasAuth(): Promise<boolean> {
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
         if (this.isTokenValid(accessToken)) return true;
         if (this.isTokenValid(refreshToken)) {
-            return await this.refresh()
+            return !!await this.refresh()
         }
         return false;
     }

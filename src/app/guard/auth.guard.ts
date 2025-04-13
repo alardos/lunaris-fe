@@ -11,3 +11,12 @@ export const authGuard: CanActivateFn = async (route, state) => {
     return !!isAuth;
 }
 
+export const antiAuthGuard: CanActivateFn = async (route, state) => {
+    const router = inject(Router)
+    const isAuth = await inject(AuthService).hasAuth();
+    if (isAuth) {
+        router.navigate(['/home']);
+    }
+    return !isAuth;
+}
+

@@ -1,0 +1,40 @@
+.main-container {
+  margin: 16px;
+  background-color: white;
+  display: flex;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  margin: 8px;
+  width:44px;
+  height:44px;
+}
+
+button {
+  height: 44px;
+  border:none;
+  border-radius: 8px;
+  font-size: 20px;
+  span {
+    padding: 0 11px;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+}
+.right {
+  padding-right: 8px;
+  .logout-icon {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    img {
+      margin-right: 4px;
+    }
+  }
+}

@@ -1,11 +1,19 @@
+<div class="outer">
 <div [formGroup]="form" class="main-container">
   <div class="field">
-    <span>Email</span><input type="text" formControlName="email">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email">
+    </mat-form-field>
   </div>
   <div class="field">
-    <span>Password</span><input type="password" formControlName="password">
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
   </div>
   <div class="field">
-    <button (click)="login()">Login</button>
+    <button mat-raised-button (click)="login()"><span class="button-content">Login</span></button>
   </div>
+</div>
 </div>

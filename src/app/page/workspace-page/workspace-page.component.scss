@@ -42,7 +42,7 @@
   padding-left: 16px;
   padding-right: 16px;
   overflow: hidden;
-  height: 100vh;
+  height: calc(100vh - 95px);
 }
 .side-column {
   /* padding-top: 64px; */

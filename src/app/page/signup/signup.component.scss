@@ -1,0 +1,30 @@
+.outer {
+  display: flex;
+}
+.main-container {
+  background-color: white;
+  margin: auto;
+  padding: 30px;
+  border-radius: 8px;
+  margin-top: 300px;
+  display:flex;
+  flex-direction: column;
+}
+.form-container {
+  display:flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid grey;
+  padding-right: 30px;
+  margin-right: 30px
+}
+.right {
+  display: flex;
+  flex-direction: column;
+}

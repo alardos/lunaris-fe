@@ -21,6 +21,16 @@ export class AuthService {
 
     }
 
+    async signup(info:{email:string,password:string, firstName:string, lastName:string}) {
+        return firstValueFrom(this.http.post(`${env.api}auth/signup`,info))
+            .then((data:any) => {
+                // localStorage.setItem('accessToken',data.accessToken)
+                // localStorage.setItem('refreshToken',data.refreshToken)
+                // localStorage.setItem('myId', data.myId)
+            })
+
+    }
+
     refresh(): Promise<string|null> {
         const refreshToken = localStorage.getItem('refreshToken')
         if (!refreshToken) return Promise.resolve(null);
